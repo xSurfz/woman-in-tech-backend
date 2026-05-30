@@ -1,1 +1,13 @@
 .env
+/src/generated/prisma
+# Dependencias
+node_modules/
+dist/
+.output/
+
+# Variables de entorno
+.env
+
+# Logs y otros
+*.log
+.DS_Store
