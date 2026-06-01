@@ -1,0 +1,200 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+enum MemberCategory {
+  LEADER
+  MEMBER
+}
+
+model Member {
+  id String @id @default(cuid())
+
+  fullName String
+  role     String
+
+  biography String?
+
+  email String? @unique
+
+  githubUrl   String?
+  linkedinUrl String?
+
+  imageUrl String?
+
+  category MemberCategory
+
+  sortOrder Int @default(0)
+
+  interests Interest[]
+
+  isActive Boolean @default(true)
+
+  deletedAt DateTime?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+enum EventMode {
+  ONSITE
+  ONLINE
+  HYBRID
+}
+
+model Event {
+  id    String @id @default(cuid())
+  slug  String @unique
+  title String
+
+  description String
+
+  imageUrl String?
+
+  location String?
+
+  eventMode EventMode @default(ONSITE)
+
+  startsAt DateTime
+  endsAt   DateTime?
+
+  externalUrl String?
+
+  isFeatured Boolean @default(false)
+
+  isActive Boolean @default(true)
+
+  deletedAt DateTime?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Program {
+  id    String @id @default(cuid())
+  slug  String @unique
+  title String
+
+  description String
+
+  imageUrl String?
+
+  actionText String?
+
+  actionUrl String?
+
+  sortOrder Int @default(0)
+
+  isActive   Boolean   @default(true)
+  isFeatured Boolean   @default(false)
+  deletedAt  DateTime?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+enum ResourceType {
+  COURSE
+  SCHOLARSHIP
+  MATERIAL
+  COMMUNITY
+  OTHER
+}
+
+model Resource {
+  id String @id @default(cuid())
+
+  title       String
+  slug        String @unique
+  description String
+
+  imageUrl String?
+
+  url String
+
+  type ResourceType
+
+  isFeatured Boolean @default(false)
+
+  isActive Boolean @default(true)
+
+  deletedAt DateTime?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Testimonial {
+  id String @id @default(cuid())
+
+  fullName String
+  company  String?
+  role     String
+
+  content String
+
+  imageUrl String?
+
+  sortOrder Int @default(0)
+
+  isActive Boolean @default(true)
+
+  deletedAt DateTime?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Interest {
+  id String @id @default(cuid())
+
+  name String @unique
+
+  description String?
+
+  members Member[]
+
+  isActive Boolean @default(true)
+
+  deletedAt DateTime?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model User {
+  id String @id @default(cuid())
+
+  firstName String
+  lastName  String
+
+  email String @unique
+
+  passwordHash String
+  avatarUrl    String?
+  role         UserRole
+
+  isActive Boolean @default(true)
+
+  lastLoginAt DateTime?
+
+  deletedAt DateTime?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+enum UserRole {
+  SUPER_ADMIN
+  ADMIN
+}
