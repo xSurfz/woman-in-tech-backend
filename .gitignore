@@ -11,3 +11,4 @@ dist/
 # Logs y otros
 *.log
 .DS_Store
+uploads/
