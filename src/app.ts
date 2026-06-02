@@ -37,6 +37,7 @@ app.use("/api/programs", programRoutes);
 app.use("/api/resources", resourceRoutes);
 app.use("/api/testimonials", testimonialRoutes);
 app.use("/api/interests", interestRoutes);
+app.use("/uploads", express.static("uploads"));
 app.use(notFoundMiddleware);
 
 app.use(errorHandler);
