@@ -5,6 +5,7 @@ import { CreateProgramDto } from "../dto/CreateProgramDto.js";
 import { ProgramRepository } from "@/modules/programs/domain/repositories/ProgramRepository.js";
 
 import { ProgramSlugAlreadyExistsException } from "@/modules/programs/domain/exceptions/ProgramSlugAlreadyExistsException.js";
+import { FileStorageService } from "@/infrastructure/upload/storage/FileStorageService.js";
 
 function slugify(text: string): string {
   return text
@@ -14,12 +15,21 @@ function slugify(text: string): string {
 }
 
 export class CreateProgramUseCase {
-  constructor(private readonly repository: ProgramRepository) {}
+  constructor(
+    private readonly repository: ProgramRepository,
+    private readonly storageProvider: FileStorageService,
+  ) {}
 
-  async execute(data: CreateProgramDto) {
+  async execute(data: CreateProgramDto, file?: Express.Multer.File) {
     const slug = slugify(data.title);
 
     const existing = await this.repository.findBySlug(slug);
+
+    let imageUrl: string | undefined;
+
+    if (file) {
+      imageUrl = await this.storageProvider.upload(file);
+    }
 
     if (existing) {
       throw new ProgramSlugAlreadyExistsException();
@@ -28,6 +38,7 @@ export class CreateProgramUseCase {
     return this.repository.create({
       ...data,
       slug,
+      imageUrl,
     });
   }
 }
