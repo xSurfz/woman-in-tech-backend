@@ -11,5 +11,5 @@ export const createTestimonialSchema = z.object({
 
   imageUrl: z.string().url().optional(),
 
-  sortOrder: z.number().optional(),
+  sortOrder: z.coerce.number().optional(),
 });
