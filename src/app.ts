@@ -10,7 +10,6 @@ import { authRoutes } from "./modules/auth/presentation/routes/auth.routes.js";
 import { programRoutes } from "./modules/programs/presentation/routes/program.routes.js";
 import { resourceRoutes } from "@/modules/resources/presentation/routes/resource.routes.js";
 import { testimonialRoutes } from "@/modules/testimonials/presentation/routes/testimonial.routes.js";
-import { interestRoutes } from "./modules/interests/presentation/routes/interest.routes.js";
 const app: Express = express();
 
 app.use(
@@ -36,7 +35,6 @@ app.use("/api/auth", authRoutes);
 app.use("/api/programs", programRoutes);
 app.use("/api/resources", resourceRoutes);
 app.use("/api/testimonials", testimonialRoutes);
-app.use("/api/interests", interestRoutes);
 app.use("/uploads", express.static("uploads"));
 app.use(notFoundMiddleware);
 

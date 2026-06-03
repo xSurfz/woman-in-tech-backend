@@ -16,7 +16,6 @@ import {
 } from "@/modules/resources/index.js";
 import { AdminResourceController } from "./resources/presentation/admin-resource.controller.js";
 import { AdminProgramController } from "./programs/presentation/admin-program.controller.js";
-import { get } from "node:http";
 const router = Router();
 
 const controller = new AdminProgramController(
@@ -24,13 +23,6 @@ const controller = new AdminProgramController(
   createProgramUseCase,
   updateProgramUseCase,
   deleteProgramUseCase,
-);
-
-const adminResourceController = new AdminResourceController(
-  getResourcesUseCase,
-  createResourceUseCase,
-  updateResourceUseCase,
-  deleteResourceUseCase,
 );
 
 router.post("/", asyncHandler(controller.create.bind(controller)));
