@@ -9,6 +9,7 @@ import { createInterestSchema } from "@/modules/interests/application/validators
 import { updateInterestSchema } from "@/modules/interests/application/validators/update-interest.schema.js";
 
 import {
+  getInterestsUseCase,
   createInterestUseCase,
   updateInterestUseCase,
   deleteInterestUseCase,
@@ -21,9 +22,17 @@ const router = Router();
 router.use(authMiddleware);
 
 const controller = new AdminInterestController(
+  getInterestsUseCase,
   createInterestUseCase,
   updateInterestUseCase,
   deleteInterestUseCase,
+);
+
+router.get(
+  "/",
+  asyncHandler(
+    controller.getAll.bind(controller),
+  ),
 );
 
 router.post(

@@ -5,7 +5,6 @@ import { UpdateEventUseCase } from "@/modules/events/application/use-cases/Updat
 import { DeleteEventUseCase } from "@/modules/events/application/use-cases/DeleteEventUseCase.js";
 
 import { successResponse } from "@/shared/http/success-response.js";
-import { FileStorageService } from "@/infrastructure/upload/storage/FileStorageService.js";
 
 export class AdminEventController {
   constructor(
@@ -38,7 +37,7 @@ export class AdminEventController {
   }
 
   async update(req: Request, res: Response): Promise<void> {
-    const { id } = req.params;
+    const id = String(req.params.id);
 
     const event = await this.updateEventUseCase.execute(id, req.body);
 
@@ -46,7 +45,7 @@ export class AdminEventController {
   }
 
   async delete(req: Request, res: Response): Promise<void> {
-    const { id } = req.params;
+    const id = String(req.params.id);
 
     await this.deleteEventUseCase.execute(id);
 
