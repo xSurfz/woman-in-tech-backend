@@ -5,11 +5,9 @@ import { authMiddleware } from "@/core/middleware/auth.middleware.js";
 import { asyncHandler } from "@/shared/utils/async-handler.js";
 const router = Router();
 
-// DI simple (igual que otros módulos que ya hiciste)
 const loginUseCase = new LoginUseCase();
 const authController = new AuthController(loginUseCase);
 
-// routes
 router.post("/login", (req, res) => authController.login(req, res));
 router.post("/logout", (req, res) => authController.logout(req, res));
 router.get(
