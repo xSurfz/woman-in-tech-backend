@@ -18,7 +18,10 @@ export class MemberEntity {
 
     public sortOrder: number,
 
-    public interests: string[],
+    public interests: {
+      id: string;
+      name: string;
+    }[],
 
     public isActive: boolean,
     public deletedAt: Date | null,

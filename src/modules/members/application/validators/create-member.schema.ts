@@ -15,7 +15,16 @@ export const createMemberSchema = z.object({
 
   category: z.enum(["LEADER", "MEMBER"]),
 
-  sortOrder: z.number().optional(),
+  sortOrder: z.coerce.number().optional(),
 
-  interests: z.array(z.string()).default([]),
+  interests: z
+  .union([
+    z.string(),
+    z.array(z.string()),
+  ])
+  .transform((value) =>
+    Array.isArray(value)
+      ? value
+      : [value],
+  ),
 });

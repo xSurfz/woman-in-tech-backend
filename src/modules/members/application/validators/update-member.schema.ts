@@ -15,7 +15,16 @@ export const updateMemberSchema = z.object({
 
   category: z.enum(["LEADER", "MEMBER"]).optional(),
 
-  sortOrder: z.number().optional(),
+  sortOrder: z.coerce.number().optional(),
 
-  interests: z.array(z.string()).optional(),
+  interests: z
+  .union([
+    z.string(),
+    z.array(z.string()),
+  ])
+  .transform((value) =>
+    Array.isArray(value)
+      ? value
+      : [value],
+  ),
 });
