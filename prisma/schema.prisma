@@ -36,6 +36,8 @@ model Member {
 
   sortOrder Int @default(0)
 
+  interests Interest[]
+
   isActive Boolean @default(true)
 
   deletedAt DateTime?
@@ -144,6 +146,23 @@ model Testimonial {
   imageUrl String?
 
   sortOrder Int @default(0)
+
+  isActive Boolean @default(true)
+
+  deletedAt DateTime?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Interest {
+  id String @id @default(cuid())
+
+  name String @unique
+
+  description String?
+
+  members Member[]
 
   isActive Boolean @default(true)
 
