@@ -198,3 +198,52 @@ enum UserRole {
   SUPER_ADMIN
   ADMIN
 }
+
+model SiteSettings {
+  id String @id @default(cuid())
+
+  homeHeroTitle String
+  homeHeroDescription String
+
+  homeHeroImageUrl String?
+
+  homeCommunityTitle String
+  homeCommunityDescription String
+
+  membersCount Int @default(0)
+  eventsCount Int @default(0)
+  partnersCount Int @default(0)
+
+  aboutHeroTitle String
+  aboutHeroDescription String
+
+  missionTitle String
+  missionContent String
+
+  visionTitle String
+  visionContent String
+
+  historyTitle String
+  historyContent String
+
+  commitmentTitle String
+  commitmentContent String
+
+  contactHeroTitle String
+  contactHeroDescription String
+
+  contactEmail String
+
+  contactPhone String
+
+  contactAddress String
+
+  contactSchedule String
+
+  facebookUrl String?
+  twitterUrl String?
+  linkedinUrl String?
+  instagramUrl String?
+
+  updatedAt DateTime @updatedAt
+}
