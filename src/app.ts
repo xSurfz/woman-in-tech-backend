@@ -11,6 +11,7 @@ import { programRoutes } from "./modules/programs/presentation/routes/program.ro
 import { resourceRoutes } from "@/modules/resources/presentation/routes/resource.routes.js";
 import { testimonialRoutes } from "@/modules/testimonials/presentation/routes/testimonial.routes.js";
 import { interestRoutes } from "./modules/interests/presentation/routes/interest.routes.js";
+import path from "node:path";
 const app: Express = express();
 
 app.use(
@@ -22,7 +23,6 @@ app.use(
 );
 app.use(cookieParser());
 app.use(express.json());
-
 app.get("/health", (req: Request, res: Response): void => {
   res.status(200).json({
     success: true,
@@ -37,6 +37,7 @@ app.use("/api/programs", programRoutes);
 app.use("/api/resources", resourceRoutes);
 app.use("/api/testimonials", testimonialRoutes);
 app.use("/api/interests", interestRoutes);
+app.use("/uploads", express.static(path.join(process.cwd(), "uploads")));
 app.use(notFoundMiddleware);
 
 app.use(errorHandler);
