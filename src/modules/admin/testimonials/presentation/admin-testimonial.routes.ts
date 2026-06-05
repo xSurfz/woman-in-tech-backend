@@ -7,8 +7,10 @@ import { validateRequest } from "@/core/middleware/validate-request.js";
 
 import { createTestimonialSchema } from "@/modules/testimonials/application/validators/create-testimonial.schema.js";
 import { updateTestimonialSchema } from "@/modules/testimonials/application/validators/update-testimonial.schema.js";
+import { upload } from "@/infrastructure/upload/multer.js";
 
 import {
+  getTestimonialsUseCase,
   createTestimonialUseCase,
   updateTestimonialUseCase,
   deleteTestimonialUseCase,
@@ -21,19 +23,29 @@ const router = Router();
 router.use(authMiddleware);
 
 const controller = new AdminTestimonialController(
+  getTestimonialsUseCase,
   createTestimonialUseCase,
   updateTestimonialUseCase,
   deleteTestimonialUseCase,
 );
 
+router.get(
+  "/",
+  asyncHandler(
+    controller.getAll.bind(controller),
+  ),
+);
+
 router.post(
   "/",
+  upload.single("image"),
   validateRequest(createTestimonialSchema),
   asyncHandler(controller.create.bind(controller)),
 );
 
 router.patch(
   "/:id",
+  upload.single("image"),
   validateRequest(updateTestimonialSchema),
   asyncHandler(controller.update.bind(controller)),
 );

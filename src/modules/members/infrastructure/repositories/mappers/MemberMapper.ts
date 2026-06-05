@@ -1,8 +1,14 @@
 import { MemberEntity } from "@/modules/members/domain/entities/MemberEntity.js";
-import { MemberCategory, Member } from "@prisma/client";
+import { MemberCategory, Prisma } from "@prisma/client";
 
+type MemberWithInterests =
+  Prisma.MemberGetPayload<{
+    include: {
+      interests: true;
+    };
+  }>;
 export class MemberMapper {
-  static toDomain(raw: Member): MemberEntity {
+  static toDomain(raw: MemberWithInterests): MemberEntity {
     return new MemberEntity(
       raw.id,
       raw.fullName,
@@ -14,7 +20,10 @@ export class MemberMapper {
       raw.imageUrl,
       raw.category as MemberCategory,
       raw.sortOrder,
-      raw.interests?.map((i) => i.name) ?? [],
+      raw.interests.map((i) => ({
+        id: i.id,
+        name: i.name,
+      })),
       raw.isActive,
       raw.deletedAt,
     );

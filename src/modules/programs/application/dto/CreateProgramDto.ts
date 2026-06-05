@@ -1,5 +1,5 @@
 export interface CreateProgramDto {
-  slug: string;
+  slug?: string;
 
   title: string;
 

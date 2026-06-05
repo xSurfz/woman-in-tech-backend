@@ -3,7 +3,6 @@ import { InterestController } from "./presentation/controllers/InterestControlle
 import { PrismaInterestRepository } from "./infrastructure/repositories/PrismaInterestRepository.js";
 
 import { GetInterestsUseCase } from "./application/use-cases/GetInterestsUseCase.js";
-
 import { CreateInterestUseCase } from "./application/use-cases/CreateInterestUseCase.js";
 import { UpdateInterestUseCase } from "./application/use-cases/UpdateInterestUseCase.js";
 import { DeleteInterestUseCase } from "./application/use-cases/DeleteInterestUseCase.js";
@@ -20,4 +19,4 @@ const deleteInterestUseCase = new DeleteInterestUseCase(repository);
 
 export const interestController = new InterestController(getInterestsUseCase);
 
-export { createInterestUseCase, updateInterestUseCase, deleteInterestUseCase };
+export { getInterestsUseCase, createInterestUseCase, updateInterestUseCase, deleteInterestUseCase };

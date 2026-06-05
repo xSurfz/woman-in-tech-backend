@@ -1,8 +1,9 @@
 import { Router } from "express";
 
 import { asyncHandler } from "@/shared/utils/async-handler.js";
-
+import { upload } from "@/infrastructure/upload/multer.js";
 import {
+  getProgramsUseCase,
   createProgramUseCase,
   updateProgramUseCase,
   deleteProgramUseCase,
@@ -13,14 +14,16 @@ import { AdminProgramController } from "./admin-program.controller.js";
 const router = Router();
 
 const controller = new AdminProgramController(
+  getProgramsUseCase,
   createProgramUseCase,
   updateProgramUseCase,
   deleteProgramUseCase,
 );
+router.get("/", asyncHandler(controller.getAll.bind(controller)));
 
-router.post("/", asyncHandler(controller.create.bind(controller)));
+router.post("/", upload.single("image"), asyncHandler(controller.create.bind(controller)),);
 
-router.patch("/:id", asyncHandler(controller.update.bind(controller)));
+router.patch("/:id", upload.single("image"), asyncHandler(controller.update.bind(controller)));
 
 router.delete("/:id", asyncHandler(controller.delete.bind(controller)));
 

@@ -2,7 +2,7 @@ import { UpdateResourceDto } from "../dto/UpdateResourceDto.js";
 
 import { ResourceNotFoundException } from "../exceptions/ResourceNotFoundException.js";
 import { ResourceSlugAlreadyExistsException } from "../exceptions/ResourceSlugAlreadyExistsException.js";
-
+import { FileStorageService } from "@/infrastructure/upload/storage/FileStorageService.js";
 import { ResourceRepository } from "../../domain/repositories/ResourceRepository.js";
 
 function slugify(text: string): string {
@@ -13,10 +13,18 @@ function slugify(text: string): string {
 }
 
 export class UpdateResourceUseCase {
-  constructor(private readonly repository: ResourceRepository) {}
+  constructor(
+    private readonly repository: ResourceRepository,
+    private readonly storageProvider: FileStorageService
+  ) {}
 
-  async execute(id: string, data: UpdateResourceDto) {
+  async execute(id: string, data: UpdateResourceDto, file?: Express.Multer.File) {
     const resource = await this.repository.findById(id);
+
+    if (file) {
+      data.imageUrl =
+        await this.storageProvider.upload(file);
+    }
 
     if (!resource) {
       throw new ResourceNotFoundException();

@@ -7,9 +7,9 @@ export const createResourceSchema = z.object({
 
   imageUrl: z.string().url().optional(),
 
-  url: z.url(),
+  url: z.string().url().optional(),
 
   type: z.enum(["COURSE", "SCHOLARSHIP", "MATERIAL", "COMMUNITY", "OTHER"]),
 
-  isFeatured: z.boolean().optional(),
+  isFeatured: z.coerce.boolean().default(false),
 });

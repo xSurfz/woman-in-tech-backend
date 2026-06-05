@@ -1,4 +1,6 @@
 export interface UpdateResourceDto {
+  slug? : string;
+  
   title?: string;
 
   description?: string;

@@ -1,15 +1,15 @@
 export interface CreateResourceDto {
   title: string;
-  slug: string;
+  slug?: string;
   description: string;
 
   imageUrl?: string;
 
-  url: string;
+  url?: string;
 
   type: "COURSE" | "SCHOLARSHIP" | "MATERIAL" | "COMMUNITY" | "OTHER";
 
   isFeatured?: boolean;
 
-  isActive: boolean
+  isActive?: boolean
 }

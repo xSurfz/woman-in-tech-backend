@@ -2,18 +2,19 @@ import { TestimonialController } from "./presentation/controllers/TestimonialCon
 
 import { PrismaTestimonialRepository } from "./infrastructure/repositories/PrismaTestimonialRepository.js";
 import { GetTestimonialsUseCase } from "./application/use-cases/GetTestimonialsUseCase.js";
-
+import { LocalStorageService } from "@/infrastructure/upload/storage/LocalStorageService.js";
 import { CreateTestimonialUseCase } from "./application/use-cases/CreateTestimonialUseCase.js";
 import { UpdateTestimonialUseCase } from "./application/use-cases/UpdateTestimonialUseCase.js";
 import { DeleteTestimonialUseCase } from "./application/use-cases/DeleteTestimonialUseCase.js";
 
 const repository = new PrismaTestimonialRepository();
+const storageProvider = new LocalStorageService();
 
 const getTestimonialsUseCase = new GetTestimonialsUseCase(repository);
 
-const createTestimonialUseCase = new CreateTestimonialUseCase(repository);
+const createTestimonialUseCase = new CreateTestimonialUseCase(repository, storageProvider);
 
-const updateTestimonialUseCase = new UpdateTestimonialUseCase(repository);
+const updateTestimonialUseCase = new UpdateTestimonialUseCase(repository, storageProvider);
 
 const deleteTestimonialUseCase = new DeleteTestimonialUseCase(repository);
 
@@ -22,6 +23,7 @@ export const testimonialController = new TestimonialController(
 );
 
 export {
+  getTestimonialsUseCase,
   createTestimonialUseCase,
   updateTestimonialUseCase,
   deleteTestimonialUseCase,
