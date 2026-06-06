@@ -11,11 +11,8 @@ export class CreateMemberUseCase {
 
   async execute(data: CreateMemberDto, file?: Express.Multer.File) {
     if (data.email) {
-      const existing =
-        await this.repository.findByEmail(
-          data.email,
-        );
-    
+      const existing = await this.repository.findByEmail(data.email);
+
       if (existing) {
         throw new ConflictException(
           "Member email already exists",
@@ -24,13 +21,17 @@ export class CreateMemberUseCase {
       }
     }
 
+    console.log("Este es el file", file);
+
     let imageUrl: string | undefined;
 
     if (file) {
-      imageUrl =
-        await this.storageProvider.upload(file);
+      imageUrl = await this.storageProvider.upload(file);
     }
 
-    return this.repository.create(data);
+    return this.repository.create({
+      ...data,
+      imageUrl,
+    });
   }
 }

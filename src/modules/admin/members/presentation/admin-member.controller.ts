@@ -12,18 +12,14 @@ export class AdminMemberController {
     private readonly deleteMemberUseCase: DeleteMemberUseCase,
   ) {}
 
-  async getAll(
-    req: Request,
-    res: Response,
-  ): Promise<void> {
-    const members =
-      await this.getMembersUseCase.execute();
-  
+  async getAll(req: Request, res: Response): Promise<void> {
+    const members = await this.getMembersUseCase.execute();
+
     successResponse(res, members);
   }
 
   async create(req: Request, res: Response): Promise<void> {
-    const member = await this.createMemberUseCase.execute(req.body);
+    const member = await this.createMemberUseCase.execute(req.body, req.file);
 
     successResponse(res, member, 201);
   }
