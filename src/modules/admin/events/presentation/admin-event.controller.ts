@@ -23,7 +23,7 @@ export class AdminEventController {
       location: req.body.location ?? null,
       eventMode: req.body.eventMode,
       startsAt: new Date(req.body.startsAt),
-      endsAt: req.body.endsAt ? new Date(req.body.endsAt) : null,
+      endsAt: req.body.endsAt ? new Date(req.body.endsAt) : undefined,
       externalUrl: req.body.externalUrl ?? null,
       isFeatured: req.body.isFeatured === "true",
     };

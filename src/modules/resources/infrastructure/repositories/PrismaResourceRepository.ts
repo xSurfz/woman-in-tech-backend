@@ -54,9 +54,12 @@ export class PrismaResourceRepository implements ResourceRepository {
 
   async create(data: CreateResourceDto): Promise<ResourceEntity> {
     const resource = await prisma.resource.create({
-      data,
+      data: {
+        ...data,
+        slug: data.slug!,
+      },
     });
-
+  
     return ResourceMapper.toDomain(resource);
   }
 

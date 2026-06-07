@@ -5,7 +5,7 @@ export interface CreateResourceDto {
 
   imageUrl?: string;
 
-  url?: string;
+  url: string;
 
   type: "COURSE" | "SCHOLARSHIP" | "MATERIAL" | "COMMUNITY" | "OTHER";
 

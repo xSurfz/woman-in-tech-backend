@@ -55,7 +55,10 @@ export class PrismaProgramRepository implements ProgramRepository {
 
   async create(data: CreateProgramDto): Promise<ProgramEntity> {
     const program = await prisma.program.create({
-      data,
+      data: {
+        ...data,
+        slug: data.slug!,
+      },
     });
 
     return ProgramMapper.toDomain(program);

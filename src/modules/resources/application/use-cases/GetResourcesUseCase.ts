@@ -1,4 +1,4 @@
-import { ResourceRepository } from "../../domain/domain/repositories/ResourceRepository.js";
+import { ResourceRepository } from "../../domain/repositories/ResourceRepository.js";
 
 export class GetResourcesUseCase {
   constructor(private readonly resourceRepository: ResourceRepository) {}

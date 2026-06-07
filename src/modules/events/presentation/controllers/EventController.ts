@@ -20,7 +20,7 @@ export class EventController {
   }
 
   async getEventBySlug(req: Request, res: Response): Promise<void> {
-    const { slug } = req.params;
+    const slug = String(req.params.slug);
 
     const event = await this.getEventBySlugUseCase.execute(slug);
 
