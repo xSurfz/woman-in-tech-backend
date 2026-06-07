@@ -16,7 +16,7 @@ const app: Express = express();
 
 app.use(
   cors({
-    origin: "https://proyecto-radia.vercel.app/", // Permite explícitamente a tu frontend
+    origin: ["http://localhost:5173", "https://proyecto-radia.vercel.app/"],
     methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
     credentials: true,
   }),
